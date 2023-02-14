@@ -64,13 +64,7 @@ export const getCategoriesAndDocuments = async () => {
 	const q = query(collectionRef);
 
 	const querySnapshot = await getDocs(q); //gets a snapshot of the query
-	const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-		const { title, items } = docSnapshot.data();
-		acc[title.toLowerCase()] = items;
-		return acc;
-	}, {}); //callback and document snapshop
-
-	return categoryMap;
+	return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 };
 
 //========== Users set up
@@ -80,7 +74,6 @@ export const createUserDocFromAuth = async (
 	additionalInformation = {}
 ) => {
 	if (!userAuth) return;
-	//console.log(userAuth);
 	const userDocRef = doc(db, "users", userAuth.uid); //uid is a unique id identifier provided by google
 	const userSnapshot = await getDoc(userDocRef);
 	//console.log(userSnapshot.exists()); //--->this points to the same identifier as userDocRef but this checks if the document exists

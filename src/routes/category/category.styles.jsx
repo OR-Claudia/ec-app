@@ -7,9 +7,8 @@ export const CategoryContainer = styled.div`
 	row-gap: 50px;
 `;
 
-export const CategoryTitle = styled.h2`
-	font-size: 28px;
+export const Title = styled.h2`
+	font-size: 38px;
 	margin-bottom: 25px;
-	cursor: pointer;
 	text-align: center;
 `;
