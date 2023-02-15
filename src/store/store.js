@@ -27,10 +27,15 @@ const persistConfig = {
 	storage,
 	blacklist: ["user"], //this can conflict and clash with the persistence of data
 };
+const composeEnhancer =
+	(process.env.NODE_ENV !== "production" &&
+		window &&
+		window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE_) ||
+	compose;
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const composedEnhancers = compose(applyMiddleware(middleWares));
+const composedEnhancers = composeEnhancer(applyMiddleware(middleWares));
 //middleware stays between components and store
 //dispatch > middleware > reducer/redux
 //for two middlewares dispatch > middleware 1 next() > middleware 2 next() > redux
