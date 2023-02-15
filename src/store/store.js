@@ -5,7 +5,9 @@ import { rootReducer } from "./root-reducer";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
-const middleWares = [logger];
+const middleWares = [process.env.NODE_ENV !== "production" && logger].filter(
+	Boolean
+); //filters by truthy values! useful
 
 // const loggerMiddleware = (store) => (next) => (action) => {
 // 	if (!action.type) {
