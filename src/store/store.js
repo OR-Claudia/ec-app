@@ -4,6 +4,7 @@ import logger from "redux-logger";
 import { rootReducer } from "./root-reducer";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import thunk from "redux-thunk";
 
 const middleWares = [process.env.NODE_ENV !== "production" && logger].filter(
 	Boolean
@@ -35,7 +36,7 @@ const composeEnhancer =
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const composedEnhancers = composeEnhancer(applyMiddleware(middleWares));
+const composedEnhancers = composeEnhancer(applyMiddleware(...middleWares));
 //middleware stays between components and store
 //dispatch > middleware > reducer/redux
 //for two middlewares dispatch > middleware 1 next() > middleware 2 next() > redux
